@@ -1,0 +1,2 @@
+# holy_c
+MY LOVE FOR CLANG IS REAL
