@@ -498,6 +498,48 @@ void test_ft_calloc(void)
     printf("\n");
 }
 
+void test_ft_strdup(void)
+{
+printf("====== Testing ft_strdup ======\n\n");
+
+    // Test 1: Basic string
+    char *orig1 = "libft";
+    char *dup1 = ft_strdup(orig1);
+    if (dup1 && strcmp(dup1, orig1) == 0)
+        printf("Test 1 - Basic copy: ✅ \"%s\"\n", dup1);
+    else
+        printf("Test 1 - Basic copy: ❌\n");
+    free(dup1);
+
+    // Test 2: Empty string
+    char *dup2 = ft_strdup("");
+    if (dup2 && strcmp(dup2, "") == 0)
+        printf("Test 2 - Empty string: ✅ \"%s\"\n", dup2);
+    else
+        printf("Test 2 - Empty string: ❌\n");
+    free(dup2);
+
+    // Test 3: Long string
+    char *orig3 = "The quick brown fox jumps over the lazy dog";
+    char *dup3 = ft_strdup(orig3);
+    if (dup3 && strcmp(dup3, orig3) == 0)
+        printf("Test 3 - Long string: ✅ \"%s\"\n", dup3);
+    else
+        printf("Test 3 - Long string: ❌\n");
+    free(dup3);
+
+    // Test 4: Memory address check
+    char *orig4 = "memory";
+    char *dup4 = ft_strdup(orig4);
+    if (dup4 && dup4 != orig4)
+        printf("Test 4 - Separate memory block: ✅ (ptr = %p, orig = %p)\n", (void *)dup4, (void *)orig4);
+    else
+        printf("Test 4 - Separate memory block: ❌\n");
+    free(dup4);
+
+    printf("\n");
+}
+
 int main(void)
 {
 	printf("====== LIBFT TESTS ======\n\n");
@@ -524,7 +566,8 @@ int main(void)
 	test_ft_strnstr();
 	test_ft_atoi();
 	test_ft_calloc();
-//	test_ft_strdup();
+	test_ft_strdup();
+	
 	return 0;
 
 }
