@@ -178,6 +178,236 @@ printf("Testing ft_strlcpy:\n\n");
     printf("\n\n");
 }
 
+void test_ft_strlcat(void)
+{
+ printf("====== Testing ft_strlcat ======\n\n");
+
+    // Test 1: Enough space to append full src
+    char buffer1[20] = "Hello";
+    size_t result1 = ft_strlcat(buffer1, " World", sizeof(buffer1));
+    printf("Test 1:\n");
+    printf("Before: \"Hello\"\n");
+    printf("After : \"%s\"\n", buffer1);
+    printf("Expected full string. Return: %zu (should be 11)\n\n", result1);
+
+    // Test 2: Not enough space (truncation happens)
+    char buffer2[10] = "Hello";
+    size_t result2 = ft_strlcat(buffer2, " World", sizeof(buffer2));
+    printf("Test 2:\n");
+    printf("Before: \"Hello\"\n");
+    printf("After : \"%s\"\n", buffer2);
+    printf("Expected truncation. Return: %zu (should be 11 — total wanted length)\n\n", result2);
+
+    // Test 3: dstsize is smaller than existing dst
+    char buffer3[5] = "Hello"; // Already full
+    size_t result3 = ft_strlcat(buffer3, " World", sizeof(buffer3));
+    printf("Test 3:\n");
+    printf("Before: \"Hello\"\n");
+    printf("After : \"%s\"\n", buffer3);
+    printf("Expected NO copy. Return: %zu (should be 5 + 6 = 11)\n\n", result3);
+
+    // Test 4: dst is empty
+    char buffer4[15] = "";
+    size_t result4 = ft_strlcat(buffer4, "World", sizeof(buffer4));
+    printf("Test 4:\n");
+    printf("Before: \"\"\n");
+    printf("After : \"%s\"\n", buffer4);
+    printf("Expected full copy. Return: %zu (should be 5)\n\n", result4);
+
+    // Test 5: dstsize = 0
+    char buffer5[10] = "Hi";
+    size_t result5 = ft_strlcat(buffer5, "There", 0);
+    printf("Test 5:\n");
+    printf("Before: \"Hi\"\n");
+    printf("After : \"%s\"\n", buffer5); // Might be garbage or unchanged
+    printf("Expected return only, no copy. Return: %zu (should be strlen(\"There\") = 5)\n\n", result5);
+
+    printf("================================\n\n");
+}
+
+void test_ft_toupper(void)
+{
+	printf("Testing ft_toupper\n");
+	char c = 'a';
+	printf("Before toupper: %c \n", c);
+	printf("After toupper: %c\n",ft_toupper(c));
+	printf("\n");
+}
+
+void test_ft_tolower(void)
+{
+	printf("Testint ft_tolower:\n");
+	char c = 'L';
+	printf("Before tolower: %c\n", c);
+	printf("After tolower: %c \n", ft_tolower(c));
+	printf("\n\n");
+	
+}
+
+void test_ft_strchr(void)
+{
+
+	printf("Testing ft_strchr! \n");
+	const char *text = "libft is fun!";
+
+    // Test 1: Char exists in the middle
+    char *result1 = ft_strchr(text, 'f');
+    printf("Test 1 - Find 'f': %s\n", result1); // Expected: "ft is fun!"
+
+    // Test 2: Char exists at the beginning
+    char *result2 = ft_strchr(text, 'l');
+    printf("Test 2 - Find 'l': %s\n", result2); // Expected: "libft is fun!"
+
+    // Test 3: Char exists at the end
+    char *result3 = ft_strchr(text, '!');
+    printf("Test 3 - Find '!': %s\n", result3); // Expected: "!"
+
+    // Test 4: Char does not exist
+    char *result4 = ft_strchr(text, 'z');
+    printf("Test 4 - Find 'z': %s\n", result4 ? result4 : "(null)"); // Expected: (null)
+
+    // Test 5: Search for null terminator
+    char *result5 = ft_strchr(text, '\0');
+    printf("Test 5 - Find '\\0': %s\n", result5); // Should point to empty string ""
+
+    printf("\n");
+}
+
+void	test_ft_strrchr(void)
+{
+printf("====== Testing ft_strrchr ======\n\n");
+
+    const char *text = "libft is fun!";
+
+    // Test 1: Char appears multiple times
+    char *result1 = ft_strrchr(text, 'f');
+    printf("Test 1 - Find 'f': %s\n", result1); // Expected: "fun!"
+
+    // Test 2: Char appears only at beginning
+    char *result2 = ft_strrchr(text, 'l');
+    printf("Test 2 - Find 'l': %s\n", result2); // Expected: "libft is fun!"
+
+    // Test 3: Char at the very end
+    char *result3 = ft_strrchr(text, '!');
+    printf("Test 3 - Find '!': %s\n", result3); // Expected: "!"
+
+    // Test 4: Char not found
+    char *result4 = ft_strrchr(text, 'z');
+    printf("Test 4 - Find 'z': %s\n", result4 ? result4 : "(null)"); // Expected: (null)
+
+    // Test 5: Searching for '\0'
+    char *result5 = ft_strrchr(text, '\0');
+    printf("Test 5 - Find '\\0': %s\n", result5); // Expected: ""
+
+    printf("\n");
+}
+
+void test_ft_strncmp(void)
+{
+  printf("====== Testing ft_strncmp ======\n\n");
+
+    // Test 1: Equal strings, n less than length
+    int res1 = ft_strncmp("hello", "hello", 3);
+    printf("Test 1 - 'hello' vs 'hello', n = 3 → %d (expected 0)\n", res1);
+
+    // Test 2: Equal strings, full length
+    int res2 = ft_strncmp("hello", "hello", 5);
+    printf("Test 2 - 'hello' vs 'hello', n = 5 → %d (expected 0)\n", res2);
+
+    // Test 3: Different strings
+    int res3 = ft_strncmp("hello", "world", 5);
+    printf("Test 3 - 'hello' vs 'world', n = 5 → %d (expected < 0)\n", res3);
+
+    // Test 4: First string smaller
+    int res4 = ft_strncmp("abc", "abd", 3);
+    printf("Test 4 - 'abc' vs 'abd', n = 3 → %d (expected < 0)\n", res4);
+
+    // Test 5: Second string smaller
+    int res5 = ft_strncmp("abd", "abc", 3);
+    printf("Test 5 - 'abd' vs 'abc', n = 3 → %d (expected > 0)\n", res5);
+
+    // Test 6: One string is a prefix of the other
+    int res6 = ft_strncmp("abc", "abcdef", 3);
+    printf("Test 6 - 'abc' vs 'abcdef', n = 3 → %d (expected 0)\n", res6);
+
+    // Test 7: Compare 0 characters
+    int res7 = ft_strncmp("hello", "world", 0);
+    printf("Test 7 - 'hello' vs 'world', n = 0 → %d (expected 0)\n", res7);
+
+    printf("\n");
+}
+
+void test_ft_memchr(void)
+{
+    printf("====== Testing ft_memchr ======\n\n");
+
+    char data[] = { 'a', 'b', 'c', 'd', 'e', 'f', '\0' };
+
+    // Test 1: Find 'c' in first 6 bytes
+    void *res1 = ft_memchr(data, 'c', 6);
+    printf("Test 1 - Find 'c': %s\n", res1 ? (char *)res1 : "(null)"); // Expected: "cdef"
+
+    // Test 2: Find 'a' (first byte)
+    void *res2 = ft_memchr(data, 'a', 6);
+    printf("Test 2 - Find 'a': %s\n", res2 ? (char *)res2 : "(null)"); // Expected: "abcdef"
+
+    // Test 3: Find 'f' (last valid byte)
+    void *res3 = ft_memchr(data, 'f', 6);
+    printf("Test 3 - Find 'f': %s\n", res3 ? (char *)res3 : "(null)"); // Expected: "f"
+
+    // Test 4: Char not found
+    void *res4 = ft_memchr(data, 'z', 6);
+    printf("Test 4 - Find 'z': %s\n", res4 ? (char *)res4 : "(null)"); // Expected: (null)
+
+    // Test 5: Find null terminator
+    void *res5 = ft_memchr(data, '\0', 7);
+    printf("Test 5 - Find '\\0': %s\n", res5 ? "(found null terminator)" : "(null)"); // Expected: (found null terminator)
+
+    printf("\n");
+}
+
+void test_ft_memcmp(void)
+{
+printf("====== Testing ft_memcmp ======\n\n");
+
+    // Test 1: Identical buffers
+    char a1[] = "libft";
+    char b1[] = "libft";
+    int res1 = ft_memcmp(a1, b1, 5);
+    printf("Test 1 - Same strings, 5 bytes → %d (expected 0)\n", res1);
+
+    // Test 2: Difference in middle
+    char a2[] = "libxt";
+    char b2[] = "libft";
+    int res2 = ft_memcmp(a2, b2, 5);
+    printf("Test 2 - 'x' vs 'f' → %d (expected > 0)\n", res2);
+
+    // Test 3: Difference at start
+    char a3[] = "xibft";
+    char b3[] = "libft";
+    int res3 = ft_memcmp(a3, b3, 5);
+    printf("Test 3 - 'x' vs 'l' → %d (expected > 0)\n", res3);
+
+    // Test 4: Difference at last byte
+    char a4[] = "libfa";
+    char b4[] = "libft";
+    int res4 = ft_memcmp(a4, b4, 5);
+    printf("Test 4 - 'a' vs 't' → %d (expected < 0)\n", res4);
+
+    // Test 5: Compare 0 bytes
+    char a5[] = "123";
+    char b5[] = "456";
+    int res5 = ft_memcmp(a5, b5, 0);
+    printf("Test 5 - Compare 0 bytes → %d (expected 0)\n", res5);
+
+    // Test 6: Binary data
+    unsigned char bin1[] = {0, 1, 2, 3, 4};
+    unsigned char bin2[] = {0, 1, 2, 3, 9};
+    int res6 = ft_memcmp(bin1, bin2, 5);
+    printf("Test 6 - Binary mismatch → %d (expected < 0)\n", res6);
+
+    printf("\n");
+}
 
 int main(void)
 {
@@ -194,6 +424,19 @@ int main(void)
 	test_ft_memcpy();
 	test_ft_memmove();
 	test_ft_strlcpy();
+	test_ft_strlcat();
+	test_ft_toupper();
+	test_ft_tolower();
+	test_ft_strchr();
+	test_ft_strrchr();
+	test_ft_strncmp();
+	test_ft_memchr();
+	test_ft_memcmp();
+//	test_ft_strnstr();
+//	test_ft_atoi();
+//	test_ft_calloc();
+//	test_ft_strdup();
 	return 0;
+
 }
 
