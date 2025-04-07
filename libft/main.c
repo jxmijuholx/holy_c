@@ -460,6 +460,44 @@ void test_ft_atoi(void)
     printf("\n");
 }
 
+void test_ft_calloc(void)
+{
+	printf("====== Testing ft_calloc ======\n\n");
+
+    // Test 1: Basic allocation of 5 ints
+    int *arr = ft_calloc(5, sizeof(int));
+    if (!arr)
+        printf("Test 1 - Allocation failed!\n");
+    else if (memcmp(arr, (int[5]){0}, 5 * sizeof(int)) == 0)
+        printf("Test 1 - 5 ints initialized to 0 ✅\n");
+    else
+        printf("Test 1 - Memory not zero-initialized ❌\n");
+    free(arr);
+
+    // Test 2: Zero-size allocation
+    void *zero_alloc = ft_calloc(0, sizeof(char));
+    printf("Test 2 - calloc(0, sizeof(char)) → %s\n", zero_alloc ? "non-NULL ✅" : "NULL ✅");
+    free(zero_alloc);
+
+    // Test 3: Large allocation (should not crash)
+    size_t big_count = 1000000;
+    size_t big_size = sizeof(char);
+    char *big = ft_calloc(big_count, big_size);
+    if (big && big[999999] == 0)
+        printf("Test 3 - Big allocation passed ✅\n");
+    else
+        printf("Test 3 - Big allocation failed ❌\n");
+    free(big);
+
+    // Test 4: Overflow simulation (should return NULL)
+    size_t huge = SIZE_MAX;
+    void *overflow = ft_calloc(huge, 2);
+    printf("Test 4 - Overflow check → %s\n", overflow ? "❌ should be NULL" : "✅ NULL as expected");
+    free(overflow);
+
+    printf("\n");
+}
+
 int main(void)
 {
 	printf("====== LIBFT TESTS ======\n\n");
@@ -485,7 +523,7 @@ int main(void)
 	test_ft_memcmp();
 	test_ft_strnstr();
 	test_ft_atoi();
-//	test_ft_calloc();
+	test_ft_calloc();
 //	test_ft_strdup();
 	return 0;
 
