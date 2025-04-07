@@ -409,6 +409,57 @@ printf("====== Testing ft_memcmp ======\n\n");
     printf("\n");
 }
 
+void test_ft_strnstr(void)
+{
+printf("====== Testing ft_strnstr ======\n\n");
+
+    const char *text = "libft is awesome";
+
+    // Test 1: Match in the middle
+    char *res1 = ft_strnstr(text, "is", 20);
+    printf("Test 1 - Find \"is\" → %s\n", res1 ? res1 : "(null)"); // Expected: "is awesome"
+
+    // Test 2: Match at the beginning
+    char *res2 = ft_strnstr(text, "libft", 10);
+    printf("Test 2 - Find \"libft\" → %s\n", res2 ? res2 : "(null)"); // Expected: "libft is awesome"
+
+    // Test 3: Match at the end
+    char *res3 = ft_strnstr(text, "awesome", 20);
+    printf("Test 3 - Find \"awesome\" → %s\n", res3 ? res3 : "(null)"); // Expected: "awesome"
+
+    // Test 4: Match would succeed, but len is too small
+    char *res4 = ft_strnstr(text, "awesome", 10);
+    printf("Test 4 - Find \"awesome\" with len=10 → %s\n", res4 ? res4 : "(null)"); // Expected: (null)
+
+    // Test 5: No match at all
+    char *res5 = ft_strnstr(text, "42", 20);
+    printf("Test 5 - Find \"42\" → %s\n", res5 ? res5 : "(null)"); // Expected: (null)
+
+    // Test 6: Empty needle
+    char *res6 = ft_strnstr(text, "", 5);
+    printf("Test 6 - Find \"\" → %s\n", res6 ? res6 : "(null)"); // Expected: full haystack
+
+    printf("\n");
+}
+
+void test_ft_atoi(void)
+{
+	 printf("====== Testing ft_atoi ======\n\n");
+
+    printf("Test 1 - \"42\" → %d (expected 42)\n", ft_atoi("42"));
+    printf("Test 2 - \"   123\" → %d (expected 123)\n", ft_atoi("   123"));
+    printf("Test 3 - \"-456\" → %d (expected -456)\n", ft_atoi("-456"));
+    printf("Test 4 - \"+789\" → %d (expected 789)\n", ft_atoi("+789"));
+    printf("Test 5 - \"2147483647\" → %d (expected 2147483647)\n", ft_atoi("2147483647")); // INT_MAX
+    printf("Test 6 - \"-2147483648\" → %d (expected -2147483648)\n", ft_atoi("-2147483648")); // INT_MIN
+    printf("Test 7 - \"42abc\" → %d (expected 42)\n", ft_atoi("42abc"));
+    printf("Test 8 - \"abc42\" → %d (expected 0)\n", ft_atoi("abc42"));
+    printf("Test 9 - \"    -00123text\" → %d (expected -123)\n", ft_atoi("    -00123text"));
+    printf("Test 10 - \"   \\t\\n 77\" → %d (expected 77)\n", ft_atoi("   \t\n 77"));
+
+    printf("\n");
+}
+
 int main(void)
 {
 	printf("====== LIBFT TESTS ======\n\n");
@@ -432,8 +483,8 @@ int main(void)
 	test_ft_strncmp();
 	test_ft_memchr();
 	test_ft_memcmp();
-//	test_ft_strnstr();
-//	test_ft_atoi();
+	test_ft_strnstr();
+	test_ft_atoi();
 //	test_ft_calloc();
 //	test_ft_strdup();
 	return 0;
