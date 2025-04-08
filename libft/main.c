@@ -573,6 +573,27 @@ void test_ft_substr(void)
     printf("\n");
 }
 
+void test_ft_strjoin(void)
+{
+ printf("====== Testing ft_strjoin ======\n\n");
+
+    char *res1 = ft_strjoin("libft", "_rocks");
+    printf("Test 1 - \"libft\" + \"_rocks\" → %s\n", res1);
+    free(res1);
+
+    char *res2 = ft_strjoin("", "emptyleft");
+    printf("Test 2 - \"\" + \"emptyleft\" → %s\n", res2);
+    free(res2);
+
+    char *res3 = ft_strjoin("emptyright", "");
+    printf("Test 3 - \"emptyright\" + \"\" → %s\n", res3);
+    free(res3);
+
+    char *res4 = ft_strjoin("", "");
+    printf("Test 4 - \"\" + \"\" → \"%s\"\n", res4);
+    free(res4);
+}
+
 int main(void)
 {
 	printf("====== LIBFT TESTS ======\n\n");
@@ -601,6 +622,7 @@ int main(void)
 	test_ft_calloc();
 	test_ft_strdup();
 	test_ft_substr();	
+	test_ft_strjoin();
 	return 0;
 
 }
