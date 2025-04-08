@@ -540,6 +540,39 @@ printf("====== Testing ft_strdup ======\n\n");
     printf("\n");
 }
 
+void test_ft_substr(void)
+{
+
+ printf("====== Testing ft_substr ======\n\n");
+
+    // Test 1: Normal substring
+    char *str1 = "libft is life";
+    char *sub1 = ft_substr(str1, 6, 2);
+    printf("Test 1 - substr(\"%s\", 6, 2) → \"%s\" (expected \"is\")\n", str1, sub1);
+    free(sub1);
+
+    // Test 2: Start at 0
+    char *sub2 = ft_substr(str1, 0, 5);
+    printf("Test 2 - substr(\"%s\", 0, 5) → \"%s\" (expected \"libft\")\n", str1, sub2);
+    free(sub2);
+
+    // Test 3: Length longer than remaining
+    char *sub3 = ft_substr(str1, 6, 50);
+    printf("Test 3 - substr(\"%s\", 6, 50) → \"%s\" (expected \"is life\")\n", str1, sub3);
+    free(sub3);
+
+    // Test 4: Start beyond string length
+    char *sub4 = ft_substr(str1, 100, 10);
+    printf("Test 4 - substr(\"%s\", 100, 10) → \"%s\" (expected \"\")\n", str1, sub4);
+    free(sub4);
+
+    // Test 5: NULL string
+    char *sub5 = ft_substr(NULL, 0, 5);
+    printf("Test 5 - substr(NULL, 0, 5) → %s (expected NULL)\n", sub5 ? sub5 : "NULL");
+
+    printf("\n");
+}
+
 int main(void)
 {
 	printf("====== LIBFT TESTS ======\n\n");
@@ -567,7 +600,7 @@ int main(void)
 	test_ft_atoi();
 	test_ft_calloc();
 	test_ft_strdup();
-	
+	test_ft_substr();	
 	return 0;
 
 }
