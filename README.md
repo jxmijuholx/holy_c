@@ -1,2 +1,2 @@
-# holy_c
-MY LOVE FOR CLANG IS REAL
+# Holy C
+Basic C functions but self-made.
