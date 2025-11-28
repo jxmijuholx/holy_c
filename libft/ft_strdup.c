@@ -1,3 +1,4 @@
+/** ft_strdup.c - Jami Juhola **/
 #include "libft.h"
 
 char	*ft_strdup(const char *s1)

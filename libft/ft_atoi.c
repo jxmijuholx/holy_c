@@ -1,3 +1,4 @@
+/** ft_atoi.c - Jami Juhola **/
 #include "libft.h"
 
 int	ft_atoi(const char * str)

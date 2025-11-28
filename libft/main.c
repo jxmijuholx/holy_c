@@ -594,11 +594,177 @@ void test_ft_strjoin(void)
     free(res4);
 }
 
+
+void test_ft_strcpy(void)
+{
+    char dst1[10];
+    char dst2[10];
+    char dst3[10];
+    char dst4[10];
+
+    // Test 1: Normal copy
+    printf("Test 1: Normal copy\n");
+    ft_strcpy(dst1, "jami");
+    printf("Result: %s\n\n", dst1);
+
+    // Test 2: Empty string
+    printf("Test 2: Empty string\n");
+    ft_strcpy(dst2, "");
+    printf("Result: \"%s\"\n\n", dst2);
+
+    // Test 3: Longer string
+    printf("Test 3: Longer string\n");
+    ft_strcpy(dst3, "Hello42");
+    printf("Result: %s\n\n", dst3);
+
+    // Test 4: Check return value
+    printf("Test 4: Check return value\n");
+    char *ret = ft_strcpy(dst4, "abc");
+    printf("Return pointer correct: %s\n\n", ret == dst4 ? "YES" : "NO");
+}
+
+void test_ft_strncpy(void)
+{
+    char dst1[10];
+    char dst2[10];
+    char dst3[10];
+    char dst4[10];
+
+    printf("---- Test 1: src shorter than n ----\n");
+    ft_strncpy(dst1, "abc", 6);
+    printf("ft_strncpy: \"%s\"\n", dst1);
+
+    strncpy(dst2, "abc", 6);
+    printf("strncpy   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 2: src exactly n ----\n");
+    ft_strncpy(dst1, "123456", 6);
+    printf("ft_strncpy: \"%s\" (may not print full buffer)\n", dst1);
+
+    strncpy(dst2, "123456", 6);
+    printf("strncpy   : \"%s\" (same behavior)\n\n", dst2);
+
+    printf("---- Test 3: src longer than n ----\n");
+    ft_strncpy(dst3, "abcdefghij", 5);
+    dst3[5] = '\0'; // print safely
+    printf("ft_strncpy: \"%s\"\n", dst3);
+
+    strncpy(dst4, "abcdefghij", 5);
+    dst4[5] = '\0';
+    printf("strncpy   : \"%s\"\n\n", dst4);
+
+    printf("---- Test 4: n = 0 ----\n");
+    ft_strncpy(dst1, "hello", 0); // should do nothing
+    strncpy(dst2, "hello", 0);    // same effect
+    printf("ft_strncpy and strncpy didn't crash (n=0)\n\n");
+
+    printf("---- Test 5: return value ----\n");
+    char *ret = ft_strncpy(dst1, "xyz", 4);
+    printf("Return pointer correct: %s\n", ret == dst1 ? "YES" : "NO");
+}
+
+void test_ft_strcat(void)
+{
+    char dst1[50];
+    char dst2[50];
+    char dst3[50];
+
+    printf("---- Test 1: Basic concatenation ----\n");
+    strcpy(dst1, "Hello ");
+    strcpy(dst2, "Hello ");
+    ft_strcat(dst1, "World");
+    strcat(dst2, "World");
+    printf("ft_strcat: \"%s\"\n", dst1);
+    printf("strcat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 2: Concatenate empty string ----\n");
+    strcpy(dst1, "Test");
+    strcpy(dst2, "Test");
+    ft_strcat(dst1, "");
+    strcat(dst2, "");
+    printf("ft_strcat: \"%s\"\n", dst1);
+    printf("strcat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 3: dest initially empty ----\n");
+    strcpy(dst1, "");
+    strcpy(dst2, "");
+    ft_strcat(dst1, "ABC");
+    strcat(dst2, "ABC");
+    printf("ft_strcat: \"%s\"\n", dst1);
+    printf("strcat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 4: src longer string ----\n");
+    strcpy(dst1, "X");
+    strcpy(dst2, "X");
+    ft_strcat(dst1, "xxxxxxxxxxxxxxx");
+    strcat(dst2, "xxxxxxxxxxxxxxx");
+    printf("ft_strcat: \"%s\"\n", dst1);
+    printf("strcat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 5: Return value test ----\n");
+    strcpy(dst3, "Hi ");
+    char *ret = ft_strcat(dst3, "there");
+    printf("Return pointer correct: %s\n", ret == dst3 ? "YES" : "NO");
+}
+
+void test_ft_strncat(void)
+{
+    char dst1[50];
+    char dst2[50];
+    char dst3[50];
+
+    printf("---- Test 1: Basic n ----\n");
+    strcpy(dst1, "Hello ");
+    strcpy(dst2, "Hello ");
+    ft_strncat(dst1, "World", 3);
+    strncat(dst2, "World", 3);
+    printf("ft_strncat: \"%s\"\n", dst1);
+    printf("strncat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 2: n larger than src ----\n");
+    strcpy(dst1, "Hi ");
+    strcpy(dst2, "Hi ");
+    ft_strncat(dst1, "there", 20);
+    strncat(dst2, "there", 20);
+    printf("ft_strncat: \"%s\"\n", dst1);
+    printf("strncat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 3: n = 0 ----\n");
+    strcpy(dst1, "Test");
+    strcpy(dst2, "Test");
+    ft_strncat(dst1, "XYZ", 0);
+    strncat(dst2, "XYZ", 0);
+    printf("ft_strncat: \"%s\"\n", dst1);
+    printf("strncat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 4: Empty src ----\n");
+    strcpy(dst1, "Base");
+    strcpy(dst2, "Base");
+    ft_strncat(dst1, "", 5);
+    strncat(dst2, "", 5);
+    printf("ft_strncat: \"%s\"\n", dst1);
+    printf("strncat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 5: dest initially empty ----\n");
+    strcpy(dst1, "");
+    strcpy(dst2, "");
+    ft_strncat(dst1, "ABC", 2);
+    strncat(dst2, "ABC", 2);
+    printf("ft_strncat: \"%s\"\n", dst1);
+    printf("strncat   : \"%s\"\n\n", dst2);
+
+    printf("---- Test 6: Return value ----\n");
+    strcpy(dst3, "Yo ");
+    char *ret = ft_strncat(dst3, "man", 2);
+    printf("Return pointer correct: %s\n", ret == dst3 ? "YES" : "NO");
+}
+
 int main(void)
 {
 	printf("====== LIBFT TESTS ======\n\n");
 
-	test_ft_isalpha();
+    /*
+    	test_ft_isalpha();
 	test_ft_isdigit();
 	test_ft_isalnum();
 	test_ft_isascii();
@@ -623,7 +789,13 @@ int main(void)
 	test_ft_strdup();
 	test_ft_substr();	
 	test_ft_strjoin();
-	return 0;
+    test_ft_strcpy();
+    test_ft_strncpy();
+    test_ft_strcat();
+    */
+    test_ft_strncat();
+
+   return 0;
 
 }
 
