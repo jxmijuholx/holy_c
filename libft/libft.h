@@ -36,22 +36,15 @@ char *ft_strcpy(char * dst, const char * src);
 char *ft_strncpy(char * dst, const char * src, size_t len);
 char *ft_strcat(char *restrict s1, const char *restrict s2);
 char *ft_strncat(char *restrict s1, const char *restrict s2, size_t n);
+char *ft_strstr(const char *haystack, const char *needle);
+void *ft_memccpy(void *restrict dst, const void *restrict src, int c, size_t n);
+void * ft_memalloc(size_t size);
 
 /*
 TODO:
-pt 1
-
-
-ft_strncat TODO
-
-ft_strstr
-
-ft_strcmp
-
-ft_memccpy
 
 pt 2:
-ft_memalloc
+ft_memalloc TODO
 
 ft_memdel
 

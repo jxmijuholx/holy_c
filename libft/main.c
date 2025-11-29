@@ -759,12 +759,150 @@ void test_ft_strncat(void)
     printf("Return pointer correct: %s\n", ret == dst3 ? "YES" : "NO");
 }
 
+void    test_ft_strstr(void)
+{
+    const char  *hay1 = "hello world";
+    const char  *hay2 = "foo bar baz";
+    const char  *hay3 = "abcabcabc";
+    const char  *hay4 = "short";
+    const char  *hay5 = "";
+    const char  *hay6 = "just testing";
+    char        *res_ft;
+    char        *res_lib;
+
+    printf("====== TESTS FOR ft_strstr ======\n\n");
+
+    printf("---- Test 1: Needle in the middle ----\n");
+    res_ft = ft_strstr(hay1, "world");
+    res_lib = strstr(hay1, "world");
+    printf("haystack : \"%s\"\n", hay1);
+    printf("needle   : \"%s\"\n", "world");
+    printf("ft_strstr: %s\n", res_ft ? res_ft : "NULL");
+    printf("strstr   : %s\n\n", res_lib ? res_lib : "NULL");
+
+    printf("---- Test 2: Needle at start ----\n");
+    res_ft = ft_strstr(hay2, "foo");
+    res_lib = strstr(hay2, "foo");
+    printf("haystack : \"%s\"\n", hay2);
+    printf("needle   : \"%s\"\n", "foo");
+    printf("ft_strstr: %s\n", res_ft ? res_ft : "NULL");
+    printf("strstr   : %s\n\n", res_lib ? res_lib : "NULL");
+
+    printf("---- Test 3: Multiple occurrences, should return first ----\n");
+    res_ft = ft_strstr(hay3, "abc");
+    res_lib = strstr(hay3, "abc");
+    printf("haystack : \"%s\"\n", hay3);
+    printf("needle   : \"%s\"\n", "abc");
+    printf("ft_strstr: %s\n", res_ft ? res_ft : "NULL");
+    printf("strstr   : %s\n\n", res_lib ? res_lib : "NULL");
+
+    printf("---- Test 4: Needle not found ----\n");
+    res_ft = ft_strstr(hay2, "xyz");
+    res_lib = strstr(hay2, "xyz");
+    printf("haystack : \"%s\"\n", hay2);
+    printf("needle   : \"%s\"\n", "xyz");
+    printf("ft_strstr: %s\n", res_ft ? res_ft : "NULL");
+    printf("strstr   : %s\n\n", res_lib ? res_lib : "NULL");
+
+    printf("---- Test 5: Empty needle ----\n");
+    res_ft = ft_strstr(hay6, "");
+    res_lib = strstr(hay6, "");
+    printf("haystack : \"%s\"\n", hay6);
+    printf("needle   : \"%s\"\n", "");
+    printf("ft_strstr: %s\n", res_ft ? res_ft : "NULL");
+    printf("strstr   : %s\n", res_lib ? res_lib : "NULL");
+    printf("ft_strstr returns haystack: %s\n\n", res_ft == hay6 ? "YES" : "NO");
+
+    printf("---- Test 6: Empty haystack ----\n");
+    res_ft = ft_strstr(hay5, "a");
+    res_lib = strstr(hay5, "a");
+    printf("haystack : \"%s\"\n", hay5);
+    printf("needle   : \"%s\"\n", "a");
+    printf("ft_strstr: %s\n", res_ft ? res_ft : "NULL");
+    printf("strstr   : %s\n\n", res_lib ? res_lib : "NULL");
+
+    printf("---- Test 7: Needle longer than haystack ----\n");
+    res_ft = ft_strstr(hay4, "longerneedle");
+    res_lib = strstr(hay4, "longerneedle");
+    printf("haystack : \"%s\"\n", hay4);
+    printf("needle   : \"%s\"\n", "longerneedle");
+    printf("ft_strstr: %s\n", res_ft ? res_ft : "NULL");
+    printf("strstr   : %s\n\n", res_lib ? res_lib : "NULL");
+}
+
+void test_ft_memccpy(void)
+{
+    char dst1[50];
+    char dst2[50];
+    char src1[] = "hello world";
+    char src2[] = "abcdefg";
+    char src3[] = "123456789";
+
+    void *ret_ft;
+    void *ret_lib;
+
+    printf("====== TESTS FOR ft_memccpy ======\n\n");
+
+    printf("---- Test 1: Copy until 'o' ----\n");
+    memset(dst1, 'X', sizeof(dst1));
+    memset(dst2, 'X', sizeof(dst2));
+    ret_ft  = ft_memccpy(dst1, src1, 'o', 20);
+    ret_lib = memccpy(dst2, src1, 'o', 20);
+    printf("ft_memccpy: \"%s\"\n", dst1);
+    printf("memccpy   : \"%s\"\n", dst2);
+    printf("return ptr is NULL? ft: %s | memccpy: %s\n\n",
+        ret_ft ? "NO" : "YES", ret_lib ? "NO" : "YES");
+
+    printf("---- Test 2: c not found ----\n");
+    memset(dst1, 'X', sizeof(dst1));
+    memset(dst2, 'X', sizeof(dst2));
+    ret_ft  = ft_memccpy(dst1, src2, 'z', 7);
+    ret_lib = memccpy(dst2, src2, 'z', 7);
+    printf("ft_memccpy dst: \"%s\"\n", dst1);
+    printf("memccpy    dst: \"%s\"\n", dst2);
+    printf("return ptr: ft: %s | memccpy: %s\n\n",
+        ret_ft ? "NOT NULL" : "NULL",
+        ret_lib ? "NOT NULL" : "NULL");
+
+    printf("---- Test 3: Copy binary data ----\n");
+    unsigned char bin_src[] = {1, 2, 3, 4, 5, 6, 7};
+    unsigned char bin_dst1[10] = {0};
+    unsigned char bin_dst2[10] = {0};
+    ret_ft  = ft_memccpy(bin_dst1, bin_src, 4, 7);
+    ret_lib = memccpy(bin_dst2, bin_src, 4, 7);
+    printf("ft stops at 4? %s\n",
+        ret_ft ? "YES" : "NO");
+    printf("memccpy stops at 4? %s\n\n",
+        ret_lib ? "YES" : "NO");
+
+    printf("---- Test 4: n = 0 ----\n");
+    memset(dst1, 'A', 10);
+    memset(dst2, 'A', 10);
+    ret_ft  = ft_memccpy(dst1, src3, '5', 0);
+    ret_lib = memccpy(dst2, src3, '5', 0);
+    printf("ft dst unchanged: %s\n", dst1);
+    printf("lib dst unchanged: %s\n", dst2);
+    printf("returns NULL: ft: %s | lib: %s\n\n",
+        ret_ft ? "NO" : "YES",
+        ret_lib ? "NO" : "YES");
+
+    printf("---- Test 5: Return pointer correctness ----\n");
+    memset(dst1, 'Z', sizeof(dst1));
+    ret_ft = ft_memccpy(dst1, "abcde", 'c', 5);
+    printf("Return points to index 3? %s\n",
+        (ret_ft == (void *)(dst1 + 3)) ? "YES" : "NO");
+}
+
+void test_ft_memalloc(void){
+
+}
+
 int main(void)
 {
 	printf("====== LIBFT TESTS ======\n\n");
 
     /*
-    	test_ft_isalpha();
+    test_ft_isalpha();
 	test_ft_isdigit();
 	test_ft_isalnum();
 	test_ft_isascii();
@@ -792,9 +930,11 @@ int main(void)
     test_ft_strcpy();
     test_ft_strncpy();
     test_ft_strcat();
-    */
     test_ft_strncat();
-
+    test_ft_strstr();
+    test_ft_memccpy();
+    */
+   test_ft_memalloc();
    return 0;
 
 }
